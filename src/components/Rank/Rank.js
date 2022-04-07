@@ -5,6 +5,7 @@ const Rank = () =>{
 
         <div className='rank'>
             <p className='rank_data'>
+                <p>Insert an image link and see what happens</p>
                 <span className='rank_data_text'>{'Your current rank is...'}</span>
                 <span className='rank_data_number'>{'5!'}</span>
             </p>

@@ -1,15 +1,16 @@
 import './SearchField.scss'
 
-const SearchField = () =>{
+const SearchField = ({onInputChange, onSubmit}) =>{
     return(
         <div className='searchbar'>
 
             <input 
                 className='searchbar_input' 
                 type='text' 
-                placeholder='Paste your link here'
+                placeholder='Insert a jpeg image here'
+                onChange={onInputChange}
             />
-            <button className='searchbar_button'>{'Start'}</button>
+            <button className='searchbar_button' onClick={onSubmit}>{'Start'}</button>
 
         </div>
     )

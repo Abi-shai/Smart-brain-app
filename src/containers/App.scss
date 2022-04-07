@@ -1,3 +1,11 @@
+.app{
+    width: 100vw;
+    height: 100vh;
+    // grid-template-rows: 1fr 1fr 1fr;
+    overscroll-behavior: none;
+    // padding-bottom: 2em;
+}
+
 .particles{
     position: fixed;
     left: 0;
@@ -5,4 +13,19 @@
     right: 0;
     bottom: 0;
     z-index: -1;
+}
+
+//Class to center the image content
+.center{
+    text-align: center;
+    padding-top: 2em;
+
+    img{
+        padding: 0;
+        margin: 0;
+        object-fit: cover;
+        width: calc(100% - 50%);
+        margin: auto;
+        height: 300px;
+    }
 }
