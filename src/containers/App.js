@@ -8,6 +8,7 @@ import Logo from "../components/Logo/Logo"
 import Rank from "../components/Rank/Rank"
 import SearchField from "../components/SearchField/SearchField"
 import FaceRecognition from '../components/FaceRecognition/FaceRecognition.js'
+import SignIn from "../components/SignIn/SignIn"
 import "./App.scss"
 
 /** Clarifai api config */
@@ -153,15 +154,14 @@ class App extends Component{
                         detectRetina: true,
                         }}
                     />
-                    <Content>
-                        <Header>
-                            <Logo />
-                            <Navigation />
-                        </Header>
-                        <Rank />
-                        <SearchField onInputChange={this.onInputChange} onSubmit={this.onButtonSubmit}/>
-                        <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl}/>
-                    </Content>
+                    <Header>
+                        <Logo />
+                        <Navigation />
+                    </Header>
+                    <Rank />
+                    <SearchField onInputChange={this.onInputChange} onSubmit={this.onButtonSubmit}/>
+                    <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl}/>
+                    <SignIn />
 
             </div>
 
