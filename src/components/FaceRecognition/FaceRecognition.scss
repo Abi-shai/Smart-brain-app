@@ -1,0 +1,24 @@
+.faceRecognition{
+    position: relative;
+    width: 400px;
+    height: auto;
+    margin: auto;
+}
+
+.bounding-box{
+    position: absolute;
+    box-shadow: 0 0 0 3px #149df2 inset;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#inputimage{
+    border: none;
+    padding: 0;
+    margin: 0;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
