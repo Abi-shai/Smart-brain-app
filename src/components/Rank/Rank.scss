@@ -4,9 +4,8 @@
 }
 
 .rank{
-    width: calc(100% - 50%);
     margin: auto;
-    padding: .15em .15em;
+    // padding: .15em .15em;
 
     &_data{
         text-align: center;
@@ -23,7 +22,7 @@
         }
 
         &_info{
-            padding: .5em 0em;
+            padding: .25em 0em;
             margin: 0;
             font-size: 2em;
             font-weight: 200;

@@ -3,12 +3,12 @@ import Particles from "react-tsparticles"
 import Clarifai from 'clarifai'
 import Header from "./Header/Header"
 import Navigation from "../components/Navigation/Navigation"
-import Content from "./Content/Content"
 import Logo from "../components/Logo/Logo"
 import Rank from "../components/Rank/Rank"
 import SearchField from "../components/SearchField/SearchField"
 import FaceRecognition from '../components/FaceRecognition/FaceRecognition.js'
 import SignIn from "../components/SignIn/SignIn"
+import Content from './Content/Content.js'
 import "./App.scss"
 
 /** Clarifai api config */
@@ -155,13 +155,15 @@ class App extends Component{
                         }}
                     />
                     <Header>
-                        <Logo />
-                        <Navigation />
+                            <Logo />
+                            <Navigation />
                     </Header>
-                    <Rank />
-                    <SearchField onInputChange={this.onInputChange} onSubmit={this.onButtonSubmit}/>
-                    <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl}/>
-                    <SignIn />
+                    <Content>
+                        <Rank />
+                        <SearchField onInputChange={this.onInputChange} onSubmit={this.onButtonSubmit}/>
+                        <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl}/>
+                        <SignIn />
+                    </Content>
 
             </div>
 

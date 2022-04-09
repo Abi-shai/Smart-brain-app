@@ -1,24 +1,47 @@
+
 @font-face {
     font-family: Anton;
-    src: url(./Anton-Regular.ttf);
+    src: url(./Anton-Regular.ttf)
 }
 
 .app{
-    width: 100%;
-    height: 100%;
     padding: 0;
-    margin: 0;
-    // grid-template-rows: 1fr 1fr 1fr;
+    margin: 2em 2em;
+    padding-bottom: 1em;
     overscroll-behavior: none;
-    // padding-bottom: 2em;
+
+    .particles{
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+    }
+    
+
+    
+    .content{
+        width: calc(100% - 50%);
+        margin: auto;
+        margin-top: 1em;
+        border: 3px solid black;
+        display: grid;
+        grid-template-rows: auto;
+        justify-content: center;
+        align-content: center;
+        background-color: rgba(10, 210, 255, 0.5);
+        backdrop-filter: blur(5px);
+    }
 
     .signIn{
-
         .form{
+            background-color: white;
             border: 3px solid black;
             width: 200px;
-            height: 200px;
             margin: auto;
+            margin-bottom: 1em;
+            margin-top: .25em;
             padding-bottom: .5em;
             display: grid;
             grid-template-rows: auto;
@@ -46,6 +69,12 @@
                 background-color: rgb(255, 241, 87);
                 border: 2px solid black;
                 padding: 0em .5em;
+
+                &:hover,:active{
+                    background-color: black;
+                    color: white;
+                    transition: 350ms ease-in-out;
+                }
             }
 
             button{
@@ -62,30 +91,13 @@
                     color: black;
                 }
             }
+
+            &_getin{
+                font-style: italic;
+                color: rgb(0, 0, 0);
+                font-size: .9em;
+                cursor: pointer;
+            }
         }
     }
-}
-
-.content{
-    width: 100%;
-    height: 100%;
-    background-color: rgba(218, 6, 6, 0.004);
-    backdrop-filter: blur(8px);
-}
-
-.particles{
-    position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
-}
-
-//Class to center the image content
-.center{
-    text-align: center;
-    padding-top: 2em;
-    padding: 0;
-    margin: 0;
 }
