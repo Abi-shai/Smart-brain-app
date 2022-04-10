@@ -14,7 +14,7 @@ import "./App.scss"
 /** Clarifai api config */
 const app = new Clarifai.App({
     apiKey: '5b13487abef14b698fb0e37a305edeb1'
-});
+})
 
 class App extends Component{
     constructor(){
@@ -23,6 +23,7 @@ class App extends Component{
             input: '',
             imageUrl: '',
             box: {},
+            route: 'signIn'
         }
     }
 
@@ -32,11 +33,10 @@ class App extends Component{
     }
 
     calculateFaceLocation = (data) => {
+        // Retreving data for the face bounding box
         const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box
         const image = document.querySelector('#inputimage')
-        console.log(clarifaiFace)
 
-        // Retreving data for the face bounding box
         const width = Number(image.width)
         const height = Number(image.height)
 
@@ -67,12 +67,14 @@ class App extends Component{
         })
     }
 
+    onRouteChange = (route) =>{
+        this.setState({route: route})
+    }
+
     render(){
-    
         return(
 
             <div className="app">
-
                     <Particles className="particles"
                     
                         // Particles background api settings
@@ -80,7 +82,7 @@ class App extends Component{
                         options={{
                             background: {
                             color: {
-                                value: "#ffffff80",
+                                value: "#fffff",
                             },
                             },
                         fpsLimit: 120,
@@ -120,7 +122,7 @@ class App extends Component{
                             color: "#000000",
                             distance: 150,
                             enable: true,
-                            opacity: 0.3,
+                            opacity: 0.1,
                             width: .5,
                         },
                         collisions: {
@@ -142,7 +144,7 @@ class App extends Component{
                             value: 100,
                         },
                         opacity: {
-                            value: 0.5,
+                            value: 0.1,
                         },
                         shape: {
                             type: "circle",
@@ -155,18 +157,21 @@ class App extends Component{
                         }}
                     />
                     <Header>
-                            <Logo />
-                            <Navigation />
+                        <Logo />
+                        <Navigation onRouteChange={this.onRouteChange}/>
                     </Header>
-                    <Content>
-                        <Rank />
-                        <SearchField onInputChange={this.onInputChange} onSubmit={this.onButtonSubmit}/>
-                        <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl}/>
-                        <SignIn />
-                    </Content>
+                    {
+                        this.state.route === 'signIn'
 
+                        ?<SignIn onRouteChange={this.onRouteChange}/>
+                        
+                        :<div>    
+                            <Rank />
+                            <SearchField onInputChange={this.onInputChange} onSubmit={this.onButtonSubmit}/>
+                            <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl}/>
+                          </div>
+                    }
             </div>
-
         )
     }
 }

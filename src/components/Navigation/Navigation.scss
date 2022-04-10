@@ -8,5 +8,12 @@
         font-size: 1em;
         padding: .5em 0em;
         font-weight: bold;
+        transition: 350ms ease-in-out;
+
+        &:hover{
+            cursor: pointer;
+            color: rgb(204, 0, 0);
+            transition: 350ms ease-in-out;
+        }
     }
 }

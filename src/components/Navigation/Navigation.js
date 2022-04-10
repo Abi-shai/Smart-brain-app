@@ -1,10 +1,10 @@
 import './Navigation.scss'
 
-const Navigation = () =>{
+const Navigation = ({onRouteChange}) =>{
     return(
 
         <div className='nav_bar'>
-            <div className='nav_options'>{'Sign out'}</div>
+            <div onClick={() =>onRouteChange('signIn')} className='nav_options'>{'Sign out'}</div>
         </div>
     )
 }
