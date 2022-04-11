@@ -3,6 +3,7 @@ import Particles from "react-tsparticles"
 import Clarifai from 'clarifai'
 import Header from "./Header/Header"
 import Navigation from "../components/Navigation/Navigation"
+import NavigationOut from "../components/Navigation/NavigationOut"
 import Logo from "../components/Logo/Logo"
 import Rank from "../components/Rank/Rank"
 import SearchField from "../components/SearchField/SearchField"
@@ -19,13 +20,12 @@ const app = new Clarifai.App({
 class App extends Component{
     constructor(){
         super()
-        
         this.state = {
             input: '',
             imageUrl: '',
             box: {},
             route: 'signIn',
-            isSignedIn: false
+            isSignIn: false,
         }
     }
 
@@ -69,11 +69,11 @@ class App extends Component{
     }
 
     onRouteChange = (route) => {
-        if(this.state.route === 'signIn'){
-            this.setState({isSignedIn: false})
-        } else if(this.state.route === 'home'){
-            this.setState({isSignedIn: true})
-        }
+        // if(this.state.route === 'signIn'){
+        //     this.setState({isSignIn: false})
+        // } else if(this.state.route === 'home'){
+        //     this.setState({isSignIn: true})
+        // }
         this.setState({route: route})
     }
 
@@ -82,6 +82,7 @@ class App extends Component{
 
             <div className="app">
                     <Particles className="particles"
+                    
                         // Particles background api settings
                         id="tsparticles"
                         options={{
@@ -161,25 +162,38 @@ class App extends Component{
                         detectRetina: true,
                         }}
                     />
-                    <Header>
-                        <Logo />
-                        <Navigation onRouteChange={this.onRouteChange} isSignedIn={this.state.isSignedIn}/>
-                    </Header>
                     {
                         this.state.route === 'home'
 
+                        ? <div>
+                            <Header>
+                                <Logo />
+                                <NavigationOut onRouteChange={this.onRouteChange} />
+                            </Header>   
+                            <Rank />
+                            <SearchField onInputChange={this.onInputChange} onSubmit={this.onButtonSubmit}/>
+                            <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl}/>
+                          </div>
+
+                        : (
+                            this.state.route === 'signIn'
+                            
                             ? <div>
-                                <Rank />
-                                <SearchField onInputChange={this.onInputChange} onSubmit={this.onButtonSubmit}/>
-                                <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl}/>
+                                <Header>
+                                    <Logo />
+                                    <Navigation onRouteChange={this.onRouteChange} isSignIn={this.state.isSignIn}/>
+                                </Header> 
+                                <SignIn onRouteChange={this.onRouteChange}/>
                               </div>
 
-                            : (
-                                this.state.route === 'signIn'
-
-                                ? <SignIn onRouteChange={this.onRouteChange}/>
-                                : <Register onRouteChange={this.onRouteChange}/>
-                            )
+                            : <div>
+                                <Header>
+                                <Logo />
+                                <Navigation onRouteChange={this.onRouteChange} isSignIn={this.state.isSignIn}/>
+                                </Header> 
+                                <Register onRouteChange={this.onRouteChange}/>
+                              </div>
+                          )
                     }
             </div>
         )
