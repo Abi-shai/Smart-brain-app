@@ -1,9 +1,16 @@
-const SignIn = ({ onRouteChange }) =>{
+const Register = ({ onRouteChange }) =>{
     return(
-        <div className="signIn">
+        <div className="register">
             <form className="form">
-                <p className="signIn_text">{'Sign in'}</p>
-
+                <p className="Register_text">{'Register'}</p>
+                <div className="form_wrapper">
+                    <label htmlFor="name">{'Name'}</label>
+                    <input
+                        type='text'
+                        id="name"
+                        name="name"
+                    />
+                </div>
                 <div className="form_wrapper">
                     <label htmlFor="email">{'Email'}</label>
                     <input
@@ -12,7 +19,6 @@ const SignIn = ({ onRouteChange }) =>{
                         name="username"
                     />
                 </div>
-                
                 <div className="form_wrapper">
                     <label htmlFor="password">{'Password'}</label>
                     <input
@@ -21,16 +27,10 @@ const SignIn = ({ onRouteChange }) =>{
                         id="password"
                     />
                 </div>
-                
-                <button onClick={() =>onRouteChange('home')}>{'Sign in'}</button>
-
-                <div className="form_getin">
-                    <span onClick={() => onRouteChange('register')}>{'Register?'}</span>
-                </div>
+                <button onClick={() =>onRouteChange('home')}>{'Register'}</button>
             </form>
         </div>
-
     )
 }
 
-export default SignIn
+export default Register

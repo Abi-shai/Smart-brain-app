@@ -8,7 +8,7 @@ import Rank from "../components/Rank/Rank"
 import SearchField from "../components/SearchField/SearchField"
 import FaceRecognition from '../components/FaceRecognition/FaceRecognition.js'
 import SignIn from "../components/SignIn/SignIn"
-import Content from './Content/Content.js'
+import Register from "../components/Register/Register"
 import "./App.scss"
 
 /** Clarifai api config */
@@ -19,17 +19,18 @@ const app = new Clarifai.App({
 class App extends Component{
     constructor(){
         super()
+        
         this.state = {
             input: '',
             imageUrl: '',
             box: {},
-            route: 'signIn'
+            route: 'signIn',
+            isSignedIn: false
         }
     }
 
     generateFaceBox = (box) => {
         this.setState({box: box})
-        console.log('Data:', box)
     }
 
     calculateFaceLocation = (data) => {
@@ -67,7 +68,12 @@ class App extends Component{
         })
     }
 
-    onRouteChange = (route) =>{
+    onRouteChange = (route) => {
+        if(this.state.route === 'signIn'){
+            this.setState({isSignedIn: false})
+        } else if(this.state.route === 'home'){
+            this.setState({isSignedIn: true})
+        }
         this.setState({route: route})
     }
 
@@ -76,7 +82,6 @@ class App extends Component{
 
             <div className="app">
                     <Particles className="particles"
-                    
                         // Particles background api settings
                         id="tsparticles"
                         options={{
@@ -158,18 +163,23 @@ class App extends Component{
                     />
                     <Header>
                         <Logo />
-                        <Navigation onRouteChange={this.onRouteChange}/>
+                        <Navigation onRouteChange={this.onRouteChange} isSignedIn={this.state.isSignedIn}/>
                     </Header>
                     {
-                        this.state.route === 'signIn'
+                        this.state.route === 'home'
 
-                        ?<SignIn onRouteChange={this.onRouteChange}/>
-                        
-                        :<div>    
-                            <Rank />
-                            <SearchField onInputChange={this.onInputChange} onSubmit={this.onButtonSubmit}/>
-                            <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl}/>
-                          </div>
+                            ? <div>
+                                <Rank />
+                                <SearchField onInputChange={this.onInputChange} onSubmit={this.onButtonSubmit}/>
+                                <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl}/>
+                              </div>
+
+                            : (
+                                this.state.route === 'signIn'
+
+                                ? <SignIn onRouteChange={this.onRouteChange}/>
+                                : <Register onRouteChange={this.onRouteChange}/>
+                            )
                     }
             </div>
         )

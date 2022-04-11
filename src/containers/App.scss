@@ -22,8 +22,6 @@
         z-index: -1;
     }
     
-
-    
     .content{
         width: calc(100% - 50%);
         margin: auto;
@@ -37,7 +35,7 @@
         backdrop-filter: blur(5px);
     }
 
-    .signIn{
+    .signIn, .register{
         transition: 500ms ease-in-out;
         .form{
             background-color: white;
