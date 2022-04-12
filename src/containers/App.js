@@ -26,6 +26,13 @@ class App extends Component{
             box: {},
             route: 'signIn',
             isSignIn: false,
+
+            user: {
+                id: '',
+                name: '',
+                entries: 0,
+                joined: ''
+            }
         }
     }
 
@@ -75,6 +82,15 @@ class App extends Component{
         //     this.setState({isSignIn: true})
         // }
         this.setState({route: route})
+    }
+
+    loadUser = (data) =>{
+        this.setState({user: {
+            id: data.id,
+            name: data.name,
+            entries: data.entries,
+            joined: data.joined
+        }})
     }
 
     render(){
@@ -191,7 +207,7 @@ class App extends Component{
                                 <Logo />
                                 <Navigation onRouteChange={this.onRouteChange} isSignIn={this.state.isSignIn}/>
                                 </Header> 
-                                <Register onRouteChange={this.onRouteChange}/>
+                                <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
                               </div>
                           )
                     }
