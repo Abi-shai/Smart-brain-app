@@ -87,7 +87,7 @@ class App extends Component{
     loadUser = (data) =>{
         this.setState({user: {
             id: data.id,
-            name: data.name,
+            name: data.username,
             entries: data.entries,
             joined: data.joined
         }})
@@ -186,7 +186,7 @@ class App extends Component{
                                 <Logo />
                                 <NavigationOut onRouteChange={this.onRouteChange} />
                             </Header>   
-                            <Rank />
+                            <Rank name={this.state.user.name} entries={this.state.user.entries}/>
                             <SearchField onInputChange={this.onInputChange} onSubmit={this.onButtonSubmit}/>
                             <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl}/>
                           </div>
@@ -197,15 +197,15 @@ class App extends Component{
                             ? <div>
                                 <Header>
                                     <Logo />
-                                    <Navigation onRouteChange={this.onRouteChange} isSignIn={this.state.isSignIn}/>
+                                    <Navigation onRouteChange={this.onRouteChange} />
                                 </Header> 
-                                <SignIn onRouteChange={this.onRouteChange}/>
+                                <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
                               </div>
 
                             : <div>
                                 <Header>
                                 <Logo />
-                                <Navigation onRouteChange={this.onRouteChange} isSignIn={this.state.isSignIn}/>
+                                <Navigation loadUser={this.loadUser} onRouteChange={this.onRouteChange} isSignIn={this.state.isSignIn}/>
                                 </Header> 
                                 <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
                               </div>
