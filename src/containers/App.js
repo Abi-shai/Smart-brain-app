@@ -36,6 +36,8 @@ class App extends Component{
         }
     }
 
+
+    // Handles the data received back from the server
     loadUser = (user) =>{
         this.setState({user: {
             id: user.id,
@@ -45,10 +47,14 @@ class App extends Component{
         }})
     }
 
+
+    // Handles the box defining the face of the person in the image 
     generateFaceBox = (box) => {
         this.setState({box: box})
     }
 
+
+    // Handles the calculation of the face by Clarifai api
     calculateFaceLocation = (data) => {
         // Retreving data for the face bounding box
         const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box
@@ -65,10 +71,13 @@ class App extends Component{
         }
     }
 
+
     onInputChange = (event) => {
         this.setState({input: event.target.value})
     }
 
+
+    // Handles the communication with the server on submitting the image 
     onPictureSubmit = () => {
         this.setState({imageUrl: this.state.input})
         // Setting up the Clarifai Api for the face detection
@@ -99,17 +108,20 @@ class App extends Component{
         })
     }
 
+
+    // Handles the route change of the application interface
     onRouteChange = (route) => {
         this.setState({route: route})
     }
+
 
     render(){
         return(
 
             <div className="app">
                     <Particles className="particles"
-                    
-                        // Particles background api settings
+                        
+                        /** Particles background api configs */
                         id="tsparticles"
                         options={{
                             background: {
@@ -189,7 +201,9 @@ class App extends Component{
                         }}
                     />
 
+
                     {
+                        // Control flow system, to handle what should be displayed on the screen depending on the current route
                         this.state.route === 'home'
 
                         ? <div>
@@ -216,7 +230,7 @@ class App extends Component{
                         : (
                             this.state.route === 'signIn'
                             
-                            ? <div>
+                            ? <div className="content2">
                                 <Header>
                                     <Logo />
                                     <Navigation onRouteChange={this.onRouteChange} />
@@ -224,7 +238,7 @@ class App extends Component{
                                 <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
                               </div>
 
-                            : <div>
+                            : <div className="content2">
                                 <Header>
                                 <Logo />
                                 <Navigation loadUser={this.loadUser} onRouteChange={this.onRouteChange} isSignIn={this.state.isSignIn}/>
