@@ -44,11 +44,10 @@ class SignIn extends Component {
             })
         })
         .then(res => res.json())
-        .then(data => {
-            const { id } = data
+        .then(user => {
+            const { id } = user
             if(id) {
-                console.log(data)
-                this.props.loadUser(data)
+                this.props.loadUser(user)
                 this.props.onRouteChange('home')
             } else {
                 alert(`This account doesn't exist`)
@@ -57,13 +56,13 @@ class SignIn extends Component {
     }
 
 
-    loadUser = (data) =>{
+    loadUser = (user) =>{
         this.setState({user: {
-            id: data.id,
-            name: data.username,
-            email: data.email,
-            entries: data.entries,
-            joined: data.joined
+            id: user.id,
+            name: user.username,
+            email: user.email,
+            entries: user.entries,
+            joined: user.joined
         }})
     }
 

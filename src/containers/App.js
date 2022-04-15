@@ -12,6 +12,7 @@ import SignIn from "../components/SignIn/SignIn"
 import Register from "../components/Register/Register"
 import "./App.scss"
 
+
 /** Clarifai api config */
 const app = new Clarifai.App({
     apiKey: '5b13487abef14b698fb0e37a305edeb1'
@@ -25,7 +26,6 @@ class App extends Component{
             imageUrl: '',
             box: {},
             route: 'signIn',
-            isSignIn: false,
 
             user: {
                 id: '',
@@ -34,6 +34,15 @@ class App extends Component{
                 joined: ''
             }
         }
+    }
+
+    loadUser = (user) =>{
+        this.setState({user: {
+            id: user.id,
+            name: user.name,
+            entries: user.entries,
+            joined: user.joined
+        }})
     }
 
     generateFaceBox = (box) => {
@@ -60,7 +69,7 @@ class App extends Component{
         this.setState({input: event.target.value})
     }
 
-    onButtonSubmit = () => {
+    onPictureSubmit = () => {
         this.setState({imageUrl: this.state.input})
         // Setting up the Clarifai Api for the face detection
         app.models.predict(
@@ -68,6 +77,21 @@ class App extends Component{
             this.state.input
         )
         .then(response => {
+            if(response) {
+
+                fetch('http://localhost:8080/image', {
+                    method: 'PUT',
+                    headers: {'Content-Type': 'Application/json'},
+                    body: JSON.stringify({
+                        id: this.state.user.id
+                    })
+                })
+                    .then(res => res.json())
+                    .then(entrie => {
+                        this.setState(Object.assign(this.state.user, {entries: entrie}))
+                    })
+            }
+
             this.generateFaceBox(this.calculateFaceLocation(response))
         })
         .catch(err => {
@@ -76,21 +100,7 @@ class App extends Component{
     }
 
     onRouteChange = (route) => {
-        // if(this.state.route === 'signIn'){
-        //     this.setState({isSignIn: false})
-        // } else if(this.state.route === 'home'){
-        //     this.setState({isSignIn: true})
-        // }
         this.setState({route: route})
-    }
-
-    loadUser = (data) =>{
-        this.setState({user: {
-            id: data.id,
-            name: data.username,
-            entries: data.entries,
-            joined: data.joined
-        }})
     }
 
     render(){
@@ -178,17 +188,29 @@ class App extends Component{
                         detectRetina: true,
                         }}
                     />
+
                     {
                         this.state.route === 'home'
 
                         ? <div>
-                            <Header>
-                                <Logo />
-                                <NavigationOut onRouteChange={this.onRouteChange} />
-                            </Header>   
-                            <Rank name={this.state.user.name} entries={this.state.user.entries}/>
-                            <SearchField onInputChange={this.onInputChange} onSubmit={this.onButtonSubmit}/>
-                            <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl}/>
+                                <Header>
+                                    <Logo />
+                                    <NavigationOut
+                                        onRouteChange={this.onRouteChange}
+                                    />
+                                </Header>
+                                <Rank
+                                    name={this.state.user.name}
+                                    entries={this.state.user.entries}
+                                />
+                                <SearchField
+                                    onInputChange={this.onInputChange}
+                                    onSubmit={this.onPictureSubmit}
+                                />
+                                <FaceRecognition
+                                    box={this.state.box}
+                                    imageUrl={this.state.imageUrl}
+                                />
                           </div>
 
                         : (
