@@ -4,12 +4,19 @@
     justify-content: flex-end;
     margin: 0em 2em;
     gap: 1em;
+    padding: 0;
+
+    @media screen and (max-width: 500px){
+        flex-direction: row;
+        // flex-wrap: wrap;
+    }
 
     .nav_options{
         font-size: 1em;
         padding: .5em 0em;
         font-weight: bold;
         transition: 350ms ease-in-out;
+        word-wrap: unset;
 
         &:hover{
             cursor: pointer;

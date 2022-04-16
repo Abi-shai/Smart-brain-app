@@ -39,15 +39,18 @@ class Register extends Component {
                 name: this.state.name
             })
         })
-        .then(res => res.json())
-        .then(res => {
-            if(res === 'Enter valid registration'){
-                console.log(res)
-            } else {
-                this.props.loadUser(res)
-                this.props.onRouteChange('home')
-            }
-        })
+            .then(res => res.json())
+            .then(res => {
+                if(res === 'Enter valid registration'){
+                    console.log(res)
+                } else {
+                    this.props.loadUser(res)
+                    this.props.onRouteChange('home')
+                }
+            })
+            .catch(error => {
+                console.log('An error occured on registering in', error)
+            })
     }
 
 

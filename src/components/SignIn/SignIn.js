@@ -24,6 +24,15 @@ class SignIn extends Component {
 
     onEmailChange = (event) => {
         this.setState({signInEmail: event.target.value})
+        if(event.target.value === ''){
+            console.log('none')
+        }
+    }
+
+    checkInpus = (event) => {
+        if(event.target.value === ''){
+            console.log('none')
+        }
     }
 
 
@@ -35,24 +44,29 @@ class SignIn extends Component {
     onSubmitSignIn = (event) => {
         event.preventDefault()
 
-        fetch('http://localhost:8080/signin', {
-            method: 'POST',
-            headers: {'Content-Type': 'Application/json'},
-            body: JSON.stringify({
-                email: this.state.signInEmail,
-                password: this.state.signInPassword
-            })
-        })
-        .then(res => res.json())
-        .then(user => {
-            const { id } = user
-            if(id) {
-                this.props.loadUser(user)
-                this.props.onRouteChange('home')
-            } else {
-                alert(`This account doesn't exist`)
+        if(this.state.signInEmail === '' && this.state.signInPassword === ''){
+            console.log('NULL')
+        } else {
+            return fetch('http://localhost:8080/signin', {
+                   method: 'POST',
+                   headers: {'Content-Type': 'Application/json'},
+                   body: JSON.stringify({
+                       email: this.state.signInEmail,
+                       password: this.state.signInPassword
+                       })
+                   })
+                   .then(res => res.json())
+                   .then(user => {
+                       const { id } = user
+                       if(id) {
+                           this.props.loadUser(user)
+                           this.props.onRouteChange('home')
+                       }
+                   })
+                   .catch(error => {
+                       console.log('An error occured on signing in', error)
+                   })
             }
-        })
     }
 
 
@@ -77,27 +91,28 @@ class SignIn extends Component {
 
                 <form className="form">
 
-                    <p className="signIn_text">{'Sign in'}</p>
+                    <p className="signIn_text">Sign in</p>
     
 
                     <div className="form_wrapper">
 
-                        <label htmlFor="email">{'Email'}</label>
+                        <label htmlFor="email">Email</label>
 
                         <input
 
                             onChange={this.onEmailChange}
+                            onSubmit={this.checkInpus}
                             type='text'
                             id="email"
                             name="email"
                         />
 
                     </div>
-                    
+
 
                     <div className="form_wrapper">
 
-                        <label htmlFor="password">{'Password'}</label>
+                        <label htmlFor="password">Password</label>
 
                         <input
 
@@ -111,11 +126,11 @@ class SignIn extends Component {
                     </div>
                     
 
-                    <button onClick={this.onSubmitSignIn}>{'Sign in'}</button>
+                    <button onClick={this.onSubmitSignIn}>Sign in </button>
     
 
                     <div className="form_getin">
-                        <span onClick={() => onRouteChange('regiter')}>{'Register?'}</span>
+                        <span onClick={() => onRouteChange('regiter')}>Register</span>
                     </div>
 
                 </form>

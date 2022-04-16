@@ -18,22 +18,24 @@ const app = new Clarifai.App({
     apiKey: '5b13487abef14b698fb0e37a305edeb1'
 })
 
+const initialState = {
+    input: '',
+    imageUrl: '',
+    box: {},
+    route: 'signIn',
+
+    user: {
+        id: '',
+        name: '',
+        entries: 0,
+        joined: ''
+    }
+}
+
 class App extends Component{
     constructor(){
         super()
-        this.state = {
-            input: '',
-            imageUrl: '',
-            box: {},
-            route: 'signIn',
-
-            user: {
-                id: '',
-                name: '',
-                entries: 0,
-                joined: ''
-            }
-        }
+        this.state = initialState
     }
 
 
@@ -99,6 +101,10 @@ class App extends Component{
                     .then(entrie => {
                         this.setState(Object.assign(this.state.user, {entries: entrie}))
                     })
+                    .catch(error => {
+                        console.log("Couldn't been able to handle this image", error)
+                    })
+                    
             }
 
             this.generateFaceBox(this.calculateFaceLocation(response))
@@ -112,10 +118,15 @@ class App extends Component{
     // Handles the route change of the application interface
     onRouteChange = (route) => {
         this.setState({route: route})
+
+        // Remove all the state settled after the user enter the  signed out route
+        if(route === 'signOut'){
+            this.setState(initialState)
+        }
     }
 
 
-    render(){
+    render() {
         return(
 
             <div className="app">
