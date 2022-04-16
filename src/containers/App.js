@@ -1,6 +1,5 @@
 import { Component } from "react"
 import Particles from "react-tsparticles"
-import Clarifai from 'clarifai'
 import Header from "./Header/Header"
 import Navigation from "../components/Navigation/Navigation"
 import NavigationOut from "../components/Navigation/NavigationOut"
@@ -12,11 +11,6 @@ import SignIn from "../components/SignIn/SignIn"
 import Register from "../components/Register/Register"
 import "./App.scss"
 
-
-/** Clarifai api config */
-const app = new Clarifai.App({
-    apiKey: '5b13487abef14b698fb0e37a305edeb1'
-})
 
 const initialState = {
     input: '',
@@ -82,11 +76,14 @@ class App extends Component{
     // Handles the communication with the server on submitting the image 
     onPictureSubmit = () => {
         this.setState({imageUrl: this.state.input})
-        // Setting up the Clarifai Api for the face detection
-        app.models.predict(
-            Clarifai.FACE_DETECT_MODEL,
-            this.state.input
-        )
+        fetch('http://localhost:8080/imageurl', {
+            method: 'POST',
+            headers: {"Content-Type": "Application/json"},
+            body: JSON.stringify({
+                input: this.state.input
+            })
+        })
+        .then(response => response.json())
         .then(response => {
             if(response) {
 
@@ -104,7 +101,7 @@ class App extends Component{
                     .catch(error => {
                         console.log("Couldn't been able to handle this image", error)
                     })
-                    
+
             }
 
             this.generateFaceBox(this.calculateFaceLocation(response))

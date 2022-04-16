@@ -45,7 +45,7 @@ class SignIn extends Component {
         event.preventDefault()
 
         if(this.state.signInEmail === '' && this.state.signInPassword === ''){
-            console.log('NULL')
+            console.log('The inputs are empty')
         } else {
             return fetch('http://localhost:8080/signin', {
                    method: 'POST',
