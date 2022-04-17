@@ -41,13 +41,13 @@ class SignIn extends Component {
     }
 
 
-    onSubmitSignIn = (event) => {
+    onSubmitSignIn = async (event) => {
         event.preventDefault()
 
         if(this.state.signInEmail === '' && this.state.signInPassword === ''){
             console.log('The inputs are empty')
         } else {
-            return fetch('http://localhost:8080/signin', {
+            return await fetch('https://pacific-falls-36803.herokuapp.com/signin', {
                    method: 'POST',
                    headers: {'Content-Type': 'Application/json'},
                    body: JSON.stringify({

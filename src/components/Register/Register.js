@@ -30,7 +30,7 @@ class Register extends Component {
     onRegisterForm = (event) => {
         event.preventDefault()
 
-        fetch('http://localhost:8080/register', {
+        fetch('https://pacific-falls-36803.herokuapp.com/register', {
             method: 'POST',
             headers: {'Content-Type': 'Application/json'},
             body: JSON.stringify({

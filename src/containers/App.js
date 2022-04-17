@@ -76,7 +76,7 @@ class App extends Component{
     // Handles the communication with the server on submitting the image 
     onPictureSubmit = () => {
         this.setState({imageUrl: this.state.input})
-        fetch('http://localhost:8080/imageurl', {
+        fetch('https://pacific-falls-36803.herokuapp.com/imageurl', {
             method: 'POST',
             headers: {"Content-Type": "Application/json"},
             body: JSON.stringify({
@@ -87,7 +87,7 @@ class App extends Component{
         .then(response => {
             if(response) {
 
-                fetch('http://localhost:8080/image', {
+                fetch('https://pacific-falls-36803.herokuapp.com/image', {
                     method: 'PUT',
                     headers: {'Content-Type': 'Application/json'},
                     body: JSON.stringify({
