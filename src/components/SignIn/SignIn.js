@@ -45,28 +45,30 @@ class SignIn extends Component {
         event.preventDefault()
 
         if(this.state.signInEmail === '' && this.state.signInPassword === ''){
-            console.log('The inputs are empty')
-            return 'empty'
+            alert('Enter valid credentials')
         } else {
-            return await fetch('https://pacific-falls-36803.herokuapp.com/signin', {
-                   method: 'POST',
-                   headers: {'Content-Type': 'Application/json'},
-                   body: JSON.stringify({
-                       email: this.state.signInEmail,
-                       password: this.state.signInPassword
-                       })
-                   })
-                   .then(res => res.json())
-                   .then(user => {
-                       const { id } = user
-                       if(id) {
-                           this.props.loadUser(user)
-                           this.props.onRouteChange('home')
-                       }
-                   })
-                   .catch(error => {
-                       console.log('An error occured on signing in', error)
-                   })
+            return (
+                    await fetch('https://pacific-falls-36803.herokuapp.com/signin', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'Application/json'},
+                    body: JSON.stringify({
+                        email: this.state.signInEmail,
+                        password: this.state.signInPassword
+                        })
+                    })
+                        .then(res => res.json())
+                        .then(user => {
+                            const { id } = user
+                            if(id) {
+                                this.props.loadUser(user)
+                                this.props.onRouteChange('home')
+                            }
+                        })
+                        .catch(error => {
+                            console.log('An error occured on signing in', error)
+                        }),
+                    alert('Loging in')
+                    )
             }
     }
 
@@ -109,11 +111,6 @@ class SignIn extends Component {
                         />
 
                     </div>
-                    {
-                        this.onSubmitSignIn === 'empty'
-                        ? console.log('lol')
-                        : console.log('good')
-                    }
 
 
                     <div className="form_wrapper">

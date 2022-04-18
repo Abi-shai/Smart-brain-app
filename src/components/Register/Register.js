@@ -29,28 +29,36 @@ class Register extends Component {
 
     onRegisterForm = (event) => {
         event.preventDefault()
+        
+        if(!this.state.email || !this.state.password || !this.state.name){
+            alert('Enter valid registration')
+        } else {
+            return (
+                fetch('https://pacific-falls-36803.herokuapp.com/register', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'Application/json'},
+                    body: JSON.stringify({
+                        email: this.state.email,
+                        password: this.state.password,
+                        name: this.state.name
+                    })
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        if(res === 'Enter valid registration'){
+                            console.log(res)
+                        } else {
+                            this.props.loadUser(res)
+                            this.props.onRouteChange('home')
+                        }
+                    })
+                    .catch(error => {
+                        console.log('An error occured on registering in', error)
+                    })
+            ),
+            alert('Registering in')
+        }
 
-        fetch('https://pacific-falls-36803.herokuapp.com/register', {
-            method: 'POST',
-            headers: {'Content-Type': 'Application/json'},
-            body: JSON.stringify({
-                email: this.state.email,
-                password: this.state.password,
-                name: this.state.name
-            })
-        })
-            .then(res => res.json())
-            .then(res => {
-                if(res === 'Enter valid registration'){
-                    console.log(res)
-                } else {
-                    this.props.loadUser(res)
-                    this.props.onRouteChange('home')
-                }
-            })
-            .catch(error => {
-                console.log('An error occured on registering in', error)
-            })
     }
 
 
