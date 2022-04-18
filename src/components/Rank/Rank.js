@@ -6,7 +6,7 @@ const Rank = ({name, entries}) =>{
         <div className='rank'>
             <div className='rank_data'>
 
-                <p className='rank_data_info'>Hey {name}, paste an image link and see what happens</p>
+                <p className='rank_data_info'>Hey {name}, paste an image link with a face and see what happens</p>
                 <span className='rank_data_text'>{'Your current rank is '}</span>
                 <span className='rank_data_number'>{entries}</span>
                 
