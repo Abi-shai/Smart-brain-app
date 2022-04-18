@@ -46,6 +46,7 @@ class SignIn extends Component {
 
         if(this.state.signInEmail === '' && this.state.signInPassword === ''){
             console.log('The inputs are empty')
+            return 'empty'
         } else {
             return await fetch('https://pacific-falls-36803.herokuapp.com/signin', {
                    method: 'POST',
@@ -108,6 +109,11 @@ class SignIn extends Component {
                         />
 
                     </div>
+                    {
+                        this.onSubmitSignIn === 'empty'
+                        ? console.log('lol')
+                        : console.log('good')
+                    }
 
 
                     <div className="form_wrapper">
