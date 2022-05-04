@@ -1,2 +1,2 @@
-## Project done while learning React and front-end development
-Finished✅
+### Project done while learning React.
+--Status: done✅
